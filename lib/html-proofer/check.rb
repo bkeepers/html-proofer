@@ -17,6 +17,16 @@ module HTMLProofer
       Element.new(node, self)
     end
 
+    def base
+      return @base if defined?(@base)
+
+      if base = @html.at_css("base")
+        url = Addressable::URI.join(path, base.attr("href"))
+      end
+
+      @base = url
+    end
+
     def run
       raise NotImplementedError, 'HTMLProofer::Check subclasses must implement #run'
     end

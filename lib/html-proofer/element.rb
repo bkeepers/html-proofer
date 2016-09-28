@@ -30,6 +30,7 @@ module HTMLProofer
 
     def url
       url = (@src || @srcset || @href || '').gsub("\u200b", '')
+      url = @check.base.join(url).to_s if @check.base
       return url if @check.options[:url_swap].empty?
       swap(url, @check.options[:url_swap])
     end
